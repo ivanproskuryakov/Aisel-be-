@@ -1,0 +1,26 @@
+# This file is part of the Aisel package.
+#
+# (c) Ivan Proskuryakov
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+parameters:
+    aisel_subscription_manager.class: Aisel\SubscriptionBundle\Manager\SubscriptionManager
+
+services:
+    sonata.admin.subscription:
+        class: Aisel\SubscriptionBundle\Admin\SubscriptionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Marketing", label: "Subscriptions" }
+        arguments:
+            - ~
+            - Aisel\SubscriptionBundle\Entity\Subscription
+            - ~
+        calls:
+            - [ setTranslationDomain, [forms]]
+            - [ setManager, [@aisel.subscription.manager]]
+
+    aisel.subscription.manager:
+        class: %aisel_subscription_manager.class%
+        arguments: [@service_container, @doctrine.orm.entity_manager]

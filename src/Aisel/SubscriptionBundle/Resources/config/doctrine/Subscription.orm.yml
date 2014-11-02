@@ -1,0 +1,28 @@
+# This file is part of the Aisel package.
+#
+# (c) Ivan Proskuryakov
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+Aisel\SubscriptionBundle\Entity\Subscription:
+    type: entity
+    table: aisel_subscription
+    repositoryClass: Aisel\SubscriptionBundle\Entity\SubscriptionRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+
+    fields:
+        email:
+            type: string
+            column: email
+        createdAt:
+            type: datetime
+            column: created_at
+        updatedAt:
+            type: datetime
+            column: updated_at
