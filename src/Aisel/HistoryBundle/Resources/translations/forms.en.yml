@@ -8,3 +8,7 @@
 aisel:
   history:
     view: View
+    entity_id: Entity Id
+    entity_type: Type
+    event_type: Event
+    hits: Hits

@@ -20,10 +20,10 @@ Aisel\HistoryBundle\Entity\Event:
             type: integer
             column: email
         entityType:
-            type: integer
+            type: string
             column: entity_type
         eventType:
-            type: integer
+            type: string
             column: event_type
         hits:
             type: integer

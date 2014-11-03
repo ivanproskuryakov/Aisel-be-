@@ -20,12 +20,12 @@ class Event
     private $entity_id;
 
     /**
-     * @var integer
+     * @var string
      */
     private $entityType;
 
     /**
-     * @var integer
+     * @var string
      */
     private $eventType;
 
@@ -81,7 +81,7 @@ class Event
     /**
      * Set entityType
      *
-     * @param integer $entityType
+     * @param string $entityType
      * @return Event
      */
     public function setEntityType($entityType)
@@ -94,7 +94,7 @@ class Event
     /**
      * Get entityType
      *
-     * @return integer 
+     * @return string 
      */
     public function getEntityType()
     {
@@ -104,7 +104,7 @@ class Event
     /**
      * Set eventType
      *
-     * @param integer $eventType
+     * @param string $eventType
      * @return Event
      */
     public function setEventType($eventType)
@@ -117,7 +117,7 @@ class Event
     /**
      * Get eventType
      *
-     * @return integer 
+     * @return string 
      */
     public function getEventType()
     {

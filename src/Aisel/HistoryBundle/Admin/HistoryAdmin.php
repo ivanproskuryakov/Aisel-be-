@@ -43,27 +43,6 @@ class HistoryAdmin extends Admin
     }
 
     /**
-     * {@inheritdoc}
-     */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        $formMapper
-            ->with('aisel.default.general')
-            ->add('id', 'text', array('label' => 'aisel.default.id', 'disabled' => true, 'required' => false, 'attr' => array('class' => 'form-control')))
-            ->with('aisel.default.dates')
-            ->add('createdAt', 'datetime', array(
-                'label' => 'aisel.default.created_at',
-                'required' => false,
-                'disabled' => true, 'attr' => array()))
-            ->add('updatedAt', 'datetime', array(
-                'label' => 'aisel.default.updated_at',
-                'required' => false,
-                'attr' => array()))
-            ->end();
-
-    }
-
-    /**
      * {@inheritDoc}
      */
     public function prePersist($history)
@@ -86,29 +65,16 @@ class HistoryAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('id', null, array('label' => 'aisel.default.id'))
-            ->add('createdAt', 'datetime', array('label' => 'aisel.default.created_at'))
+            ->add('id', null, array('label' => 'aisel.default.id'))
+            ->add('entity_id', null, array('label' => 'aisel.history.entity_id'))
+            ->add('entity_type', null, array('label' => 'aisel.history.entity_type'))
+            ->add('event_type', null, array('label' => 'aisel.history.event_type'))
+            ->add('updatedAt', 'datetime', array('label' => 'aisel.default.updated_at'))
             ->add('_action', 'actions', array(
                     'actions' => array(
-                        'show' => array(),
-                        'edit' => array(),
                         'delete' => array(),
                     ))
             );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->with('aisel.default.information')
-            ->add('id', null, array('label' => 'aisel.default.id'))
-            ->end()
-            ->with('aisel.default.dates')
-            ->add('createdAt', null, array('label' => 'aisel.default.created_at'))
-            ->add('updatedAt', null, array('label' => 'aisel.default.updated_at'));
     }
 
     /**
