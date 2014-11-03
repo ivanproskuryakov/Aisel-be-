@@ -45,3 +45,9 @@ suites:
     AiselSettingsBundle:
         namespace: Aisel
         spec_path: src/Aisel/SettingsBundle/
+    AiselSubscriptionBundle:
+        namespace: Aisel
+        spec_path: src/Aisel/SubscriptionBundle/
+    AiselHistoryBundle:
+        namespace: Aisel
+        spec_path: src/Aisel/HistoryBundle/

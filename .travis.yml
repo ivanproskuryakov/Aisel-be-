@@ -46,5 +46,5 @@ before_script:
 
 script:
     - bin/phpspec run --stop-on-failure
-    - bin/behat --stop-on-failure
+    - bin/behat --stop-on-failure #--suite=web_features
 #    - grunt karma

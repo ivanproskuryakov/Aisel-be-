@@ -19,11 +19,11 @@ class FeatureContext extends SonataAdminContext
     }
 
     /**
-     * @When /^I visit history list route admin_aisel_history_history_list$/
+     * @When /^I visit history list route admin_aisel_history_event_list$/
      */
     public function browseToHistoryListRoute()
     {
-        $this->getSession()->visit($this->generateUrl('admin_aisel_history_history_list', array('_locale' => 'en')));
+        $this->getSession()->visit($this->generateUrl('admin_aisel_history_event_list', array('_locale' => 'en')));
         $this->assertSession()->statusCodeEquals(200);
     }
 
@@ -32,34 +32,7 @@ class FeatureContext extends SonataAdminContext
      */
     public function iSeeListOfRows()
     {
-        $element = $this->showList();
-        assertNotEmpty($element->getText());
-    }
-
-    /**
-     * @Given /^I click on "Show" button and see details$/
-     */
-    public function iSeeEntityDetails()
-    {
-        $element = $this->showButtonClick();
-        assertNotEmpty($element->getText());
-    }
-
-    /**
-     * @Given /^I click on "Edit" button and see edit form$/
-     */
-    public function iSeeEditForm()
-    {
-        $element = $this->editButtonClick();
-        assertNotEmpty($element->getText());
-    }
-
-    /**
-     * @Given /^I click on "Delete" button and see confirmation$/
-     */
-    public function iSeeConfirmationMessage()
-    {
-        $element = $this->deleteButtonClick();
+        $element = $this->findByCSS('.sonata-ba-list-field-integer');
         assertNotEmpty($element->getText());
     }
 

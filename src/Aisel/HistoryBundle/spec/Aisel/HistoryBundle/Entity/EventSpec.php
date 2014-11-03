@@ -20,7 +20,7 @@ class HistorySpec extends ObjectBehavior
 {
     public function it_is_initializable()
     {
-        $this->shouldHaveType('Aisel\HistoryBundle\Entity\History');
+        $this->shouldHaveType('Aisel\HistoryBundle\Entity\Event');
     }
 
     public function it_should_not_have_id()

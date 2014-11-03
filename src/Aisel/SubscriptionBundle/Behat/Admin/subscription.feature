@@ -1,6 +1,6 @@
 @admin.subscription
 Feature: subscription
-  In subscription to manage subscriptions from backend
+  In order to manage subscriptions from backend
   As a backend user
   I want to make CRUD operations for subscription entities
 

@@ -50,7 +50,8 @@ class SubscriptionAdmin extends Admin
         $formMapper
             ->with('aisel.default.general')
             ->add('id', 'text', array('label' => 'aisel.default.id', 'disabled' => true, 'required' => false, 'attr' => array('class' => 'form-control')))
-            ->add('email', 'email', array('label' => 'aisel.default.email','attr' => array('class' => 'form-control')))
+            ->add('email', 'email', array('label' => 'aisel.subscription.email','attr' => array('class' => 'form-control')))
+            ->end()
             ->with('aisel.default.dates')
             ->add('createdAt', 'datetime', array(
                 'label' => 'aisel.default.created_at',
