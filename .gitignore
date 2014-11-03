@@ -26,5 +26,6 @@
 Capfile
 node_modules
 dist
+.idea/*
 .tmp
 .sass-cache

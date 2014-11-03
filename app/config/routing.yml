@@ -42,6 +42,10 @@ aisel_subscription:
     resource: "@AiselSubscriptionBundle/Resources/config/routing.yml"
     prefix:   /
 
+aisel_history:
+    resource: "@AiselHistoryBundle/Resources/config/routing.yml"
+    prefix:   /
+
 aisel_settings:
     resource: "@AiselSettingsBundle/Resources/config/routing.yml"
     prefix:   /
