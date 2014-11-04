@@ -1,8 +1,6 @@
-About
+About [![Travis-CI](https://travis-ci.org/ivanproskuryakov/Aisel-be-.svg?branch=master)](https://travis-ci.org/ivanproskuryakov/Aisel)
 -----------------------------------
-[![License](https://poser.pugx.org/aisel/aisel/license.svg)](https://packagist.org/packages/aisel/aisel)
 <br/>
-
 Aisel[be] - Backend version of Aisel package
 
 Installation
