@@ -31,9 +31,9 @@ class MediaController extends Controller
     {
 
         $logger = $this->get('logger');
-        $logger->info($request->get('files'));
-        $pathInfo = $request->get('request')->getPathInfo();
-        $documentRoot = realpath($this->sc->get('request')->server->get('DOCUMENT_ROOT'));
+        $logger->info($request);
+        $pathInfo = $request->getPathInfo();
+        $documentRoot = realpath($request->server->get('DOCUMENT_ROOT'));
         $json = $this->container->get("aisel.product.media.manager")
             ->launchMediaUploaderForProductId($productId, $pathInfo, $documentRoot);
 
