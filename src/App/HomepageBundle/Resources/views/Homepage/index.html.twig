@@ -9,5 +9,8 @@ file that was distributed with this source code.
 
 #}
 
-<!-- AppHomepageBundle -->
-<h2>{{ name }}</h2>
+{% extends 'AppResourceBundle:Base:layout.html.twig' %}
+
+{% block content_row %}
+    <h2>{{ name }}</h2>
+{% endblock %}

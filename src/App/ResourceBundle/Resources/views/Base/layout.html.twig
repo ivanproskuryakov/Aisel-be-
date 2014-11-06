@@ -1,0 +1,38 @@
+{#
+
+This file is part of the Aisel package.
+
+(c) Ivan Proskuryakov
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    {% block javascripts %}
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <script data-require="prefixfree@*" data-semver="1.0.7"
+                src="//cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    {% endblock %}
+    {% block stylesheets %}
+        {% stylesheets filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+
+</head>
+<body class="webpage">
+<div class="container">
+    {% include 'AppResourceBundle:Base:header.html.twig' %}
+    {% include 'AppResourceBundle:Base:flash.html.twig' %}
+    {% block content_row %}
+    {% endblock %}
+    {% include 'AppResourceBundle:Base:footer.html.twig' %}
+</div>
+</body>
+</html>
