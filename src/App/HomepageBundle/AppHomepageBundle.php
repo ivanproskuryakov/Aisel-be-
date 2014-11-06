@@ -9,15 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Frontend\HomepageBundle;
+namespace App\HomepageBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Aisel frontend bundle - homepage page management
+ * Aisel app bundle - homepage page management
  *
  * @author Ivan Proskoryakov <volgodark@gmail.com>
  */
-class FrontendHomepageBundle extends Bundle
+class AppHomepageBundle extends Bundle
 {
 }

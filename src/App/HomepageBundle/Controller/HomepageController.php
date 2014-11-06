@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Frontend\HomepageBundle\Controller;
+namespace App\HomepageBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Homepage controller
+ * App Homepage controller
  *
  * @author Ivan Proskoryakov <volgodark@gmail.com>
  */
@@ -30,7 +30,7 @@ class HomepageController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('FrontendHomepageBundle:Homepage:index.html.twig', array('name' => 'homepage'));
+        return $this->render('AppHomepageBundle:Homepage:index.html.twig', array('name' => 'HomepageBundle'));
 
     }
 }

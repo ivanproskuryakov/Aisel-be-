@@ -1,3 +1,0 @@
-frontend_homepage:
-    resource: "@FrontendHomepageBundle/Resources/config/routing.yml"
-    prefix:   /

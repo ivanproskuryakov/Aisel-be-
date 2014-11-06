@@ -55,8 +55,9 @@ class AppKernel extends Kernel
             new Aisel\SubscriptionBundle\AiselSubscriptionBundle(),
             new Aisel\HistoryBundle\AiselHistoryBundle(),
 
-            // Frontend bundles
-            new Frontend\HomepageBundle\FrontendHomepageBundle(),
+            // Application specific bundles
+            new App\HomepageBundle\AppHomepageBundle(),
+            new App\ResourceBundle\AppResourceBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

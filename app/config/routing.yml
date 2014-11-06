@@ -1,5 +1,5 @@
-_frontend:
-    resource: routing_frontend.yml
+_app:
+    resource: routing_app.yml
 
-_backend:
-    resource: routing_backend.yml
+_aisel:
+    resource: routing_aisel.yml

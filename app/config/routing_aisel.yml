@@ -2,10 +2,6 @@ aisel_contact:
     resource: "@AiselContactBundle/Resources/config/routing.yml"
     prefix:   /
 
-frontend_homepage:
-    resource: "@FrontendHomepageBundle/Resources/config/routing.yml"
-    prefix:   /
-
 aisel_navigation:
     resource: "@AiselNavigationBundle/Resources/config/routing.yml"
     prefix:   /

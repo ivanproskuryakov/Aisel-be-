@@ -4,9 +4,3 @@
 #
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
-
-frontend_homepage:
-    pattern:  /
-    defaults: { _controller: FrontendHomepageBundle:Homepage:index, _format: ~ }
-    requirements:
-        _method: GET
