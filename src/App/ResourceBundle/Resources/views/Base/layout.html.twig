@@ -10,7 +10,7 @@ file that was distributed with this source code.
 #}
 
 {% extends 'MopaBootstrapBundle::base.html.twig' %}
-{% block title %} App.title {% endblock title %}
+{% block title %}{{ defaultMetaTitle() }}{% endblock title %}
 
 {% block body_start %}
     {% include 'AppResourceBundle:Base:header.html.twig' %}

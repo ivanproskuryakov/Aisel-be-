@@ -43,7 +43,8 @@ body .pagination > .active > span:focus {
 .website-header .navbar {
     margin-bottom: 0px;
 }
-.navbar .navbar-brand:hover, .navbar .navbar-brand {
+.website-header .navbar .navbar-brand:hover,
+.website-header .navbar .navbar-brand {
     color: #999999;
     background: #657496;
     height: 50px;

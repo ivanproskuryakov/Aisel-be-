@@ -6,13 +6,12 @@
 # file that was distributed with this source code.
 
 
-#services:
-#    app.navbar:
-#        class: '%mopa_bootstrap.navbar.generic%'
-#        scope: request
-#        arguments:
-#            - { leftmenu: @sternenbund.navbar_main_menu=, rightmenu: @sternenbund.navbar_right_menu= }
-#            - {}
-#            - { title: "App", titleRoute: "mopa_bootstrap_welcome", fixedTop: true }
-#        tags:
-#            - { name: mopa_bootstrap.navbar, alias: frontendNavbar }
+parameters:
+    app_meta_extension.class: App\ResourceBundle\Twig\MetaExtension
+
+services:
+    app.twig.meta_extension:
+        class: %app_meta_extension.class%
+        arguments: [@aisel.settings.manager]
+        tags:
+            - { name: twig.extension }
