@@ -30,7 +30,10 @@ class HomepageController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('AppHomepageBundle:Homepage:index.html.twig', array('name' => 'HomepageBundle'));
+        $config = $this->container->get("aisel.settings.manager")->getConfig('config_homepage');
+        $config = (array)json_decode($config['config_homepage']);
+        $homepage = $config['content'];
 
+        return $this->render('AppHomepageBundle:Homepage:index.html.twig', array('content' => $homepage));
     }
 }

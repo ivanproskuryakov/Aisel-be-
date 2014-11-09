@@ -11,13 +11,16 @@ file that was distributed with this source code.
 
 {% extends 'AppResourceBundle:Base:layout.html.twig' %}
 
-{% block headline %}
-    Homepage
-{% endblock headline %}
+{% block page_header %}
+{% endblock page_header %}
 
-{% block content_content %}
-    {{ name }}
-{% endblock content_content %}
+{% block content %}
+    {% autoescape false %}
+        <div class="col-sm-12" style="margin-top: 25px">
+            {{ content }}
+        </div>
+    {% endautoescape %}
+{% endblock content %}
 
 {% block content_sidebar %}
     Sidebar

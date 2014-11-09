@@ -43,14 +43,13 @@ class SettingsManager
     public function getConfig()
     {
         $config = $this->em->getRepository('AiselConfigBundle:Config')->getAllSettings();
+
         if (!($config)) {
             throw new NotFoundHttpException('Nothing found');
         }
         $config['settings'] = array();
         $config['settings']['locale'] = $this->locale;
-        // inject response unix timestamp
         $config['time'] = time();
-
         return $config;
     }
 

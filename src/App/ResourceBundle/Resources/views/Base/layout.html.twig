@@ -20,6 +20,9 @@ file that was distributed with this source code.
     {% include 'AppResourceBundle:Base:footer.html.twig' %}
 {% endblock footer %}
 
+{% block foot_script %}
+{% endblock foot_script %}
+
 {% block head_style %}
     {% stylesheets
     '@AppResourceBundle/Resources/public/css/style.css'
@@ -31,7 +34,8 @@ file that was distributed with this source code.
 
 {% block head_script %}
     {% javascripts
-    'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js' %}
+    'bower_components/jquery/jquery.min.js'
+    %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock head_script %}
