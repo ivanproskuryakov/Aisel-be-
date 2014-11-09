@@ -42,8 +42,13 @@
         "sonata-project/block-bundle": "~2.2@dev",
         "sonata-project/core-bundle": "~2.2@dev",
         "jms/serializer-bundle": "0.13.*@dev",
-        "mopa/bootstrap-bundle": "2.3.x-dev",
-        "twbs/bootstrap": "v2.3.2",
+
+        "mopa/bootstrap-bundle": "v3.0.0-beta4",
+        "twbs/bootstrap": "dev-master",
+        "knplabs/knp-menu-bundle": ">=1.1.0,<3.0.0",
+        "knplabs/knp-menu": ">=1.1.0,<3.0.0",
+        "knplabs/knp-paginator-bundle": "dev-master",
+
         "presta/sonata-navigation-bundle": "1.0.*@dev",
         "doctrine/doctrine-fixtures-bundle": "2.2.*@dev",
         "iphp/filestore-bundle" : "dev-master",
@@ -64,14 +69,17 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrap"
+
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrap"
         ]
     },
     "config": {

@@ -11,6 +11,14 @@ file that was distributed with this source code.
 
 {% extends 'AppResourceBundle:Base:layout.html.twig' %}
 
-{% block content_row %}
-    <h2>{{ name }}</h2>
-{% endblock %}
+{% block headline %}
+    Homepage
+{% endblock headline %}
+
+{% block content_content %}
+    {{ name }}
+{% endblock content_content %}
+
+{% block content_sidebar %}
+    Sidebar
+{% endblock content_sidebar %}

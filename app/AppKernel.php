@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
+            new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
 
             // Sonata
             new Sonata\CoreBundle\SonataCoreBundle(),

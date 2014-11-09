@@ -9,30 +9,29 @@ file that was distributed with this source code.
 
 #}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8"/>
-    {% block javascripts %}
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-        <script data-require="prefixfree@*" data-semver="1.0.7"
-                src="//cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-    {% endblock %}
-    {% block stylesheets %}
-        {% stylesheets filter='cssrewrite' %}
-        <link rel="stylesheet" href="{{ asset_url }}"/>
-        {% endstylesheets %}
-    {% endblock %}
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+{% extends 'MopaBootstrapBundle::base.html.twig' %}
+{% block title %} App.title {% endblock title %}
 
-</head>
-<body class="webpage">
-<div class="container">
+{% block body_start %}
     {% include 'AppResourceBundle:Base:header.html.twig' %}
-    {% include 'AppResourceBundle:Base:flash.html.twig' %}
-    {% block content_row %}
-    {% endblock %}
+{% endblock body_start %}
+
+{% block footer %}
     {% include 'AppResourceBundle:Base:footer.html.twig' %}
-</div>
-</body>
-</html>
+{% endblock footer %}
+
+{% block head_style %}
+    {% stylesheets
+    '@AppResourceBundle/Resources/public/css/style.css'
+    '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
+    filter='less' %}
+    <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock head_style %}
+
+{% block head_script %}
+    {% javascripts
+    'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock head_script %}

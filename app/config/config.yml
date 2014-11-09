@@ -39,6 +39,14 @@ assetic:
     use_controller: false
 #    bundles:[]
     filters:
+#        less:
+#            node: /usr/bin/node
+#            node_paths: [/usr/lib/node_modules]
+        less:
+          node: /usr/local/bin/node
+          node_paths: [/usr/local/lib/node_modules]
+          compress:   true
+          apply_to:   "\.less$"
         cssrewrite: ~
 
 # Annotations
@@ -136,6 +144,9 @@ sonata_admin:
         html5_validate: true # does not use html5 validation
         confirm_exit:   true # disable confirmation when quitting with unsaved changes
 
+mopa_bootstrap:
+    form: ~  # Adds twig form theme  support
+    menu: ~  # enables twig helpers for menu
 
 sonata_doctrine_orm_admin:
     entity_manager: ~

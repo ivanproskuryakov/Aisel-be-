@@ -4,3 +4,15 @@
 #
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
+
+
+#services:
+#    app.navbar:
+#        class: '%mopa_bootstrap.navbar.generic%'
+#        scope: request
+#        arguments:
+#            - { leftmenu: @sternenbund.navbar_main_menu=, rightmenu: @sternenbund.navbar_right_menu= }
+#            - {}
+#            - { title: "App", titleRoute: "mopa_bootstrap_welcome", fixedTop: true }
+#        tags:
+#            - { name: mopa_bootstrap.navbar, alias: frontendNavbar }
