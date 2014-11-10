@@ -1,0 +1,8 @@
+services:
+    sonata.user.admin.group:
+        abstract: true
+        public: false
+
+    frontend.user.manager:
+        class: Cosa\UserBundle\Manager\UserManager
+        arguments: [@doctrine.orm.entity_manager, @security.encoder_factory, @mailer, @templating,  %application.email%,  @translator ]

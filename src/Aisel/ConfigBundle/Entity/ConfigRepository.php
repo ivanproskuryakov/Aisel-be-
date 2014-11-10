@@ -31,7 +31,7 @@ class ConfigRepository extends EntityRepository
     {
 
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $values = $qb->select('c.entity, c.value')
+        $values = $qb->select('c')
             ->from('AiselConfigBundle:Config', 'c')
             ->getQuery()
             ->execute();

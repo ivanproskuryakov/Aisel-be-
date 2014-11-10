@@ -34,23 +34,30 @@ class SettingsManager
     }
 
     /**
-     * Get all setting
+     * Get setting
+     *
+     * @param string $name
+     * @param string $locale
      *
      * @return array $config
      *
      * @throws NotFoundHttpException
      */
-    public function getConfig()
+    public function getConfig($name = null, $locale = null)
     {
-        $config = $this->em->getRepository('AiselConfigBundle:Config')->getAllSettings();
+        if (!$name) {
+            $config = $this->em->getRepository('AiselConfigBundle:Config')->getAllSettings();
+            $config['settings'] = array();
+            $config['settings']['locale'] = $this->locale;
+            $config['time'] = time();
+        } else {
+            $data = $this->em->getRepository('AiselConfigBundle:Config')->getConfig($locale, $name);
+            $config = (array)json_decode($data->getValue());
+        }
 
         if (!($config)) {
             throw new NotFoundHttpException('Nothing found');
         }
-        $config['settings'] = array();
-        $config['settings']['locale'] = $this->locale;
-        $config['time'] = time();
         return $config;
     }
-
 }

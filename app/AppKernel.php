@@ -59,6 +59,7 @@ class AppKernel extends Kernel
             // Application specific bundles
             new App\HomepageBundle\AppHomepageBundle(),
             new App\ResourceBundle\AppResourceBundle(),
+            new App\ContactBundle\AppContactBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
