@@ -11,7 +11,6 @@
 
 namespace Aisel\PageBundle\Controller;
 
-use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -34,15 +33,20 @@ class ApiPageController extends Controller
     }
 
     /**
-     * @Rest\View
      * /api/page/list.json?limit=2&current=3
+     *
+     * @param Request $request
+     * @param string $locale
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse $response
      */
     public function pageListAction(Request $request, $locale)
     {
         $params = array(
             'current' => $request->get('current'),
             'limit' => $request->get('limit'),
-            'category' => $request->get('category')
+            'category' => $request->get('category'),
+            'locale' => $request->get('locale')
         );
 
         if ($request->get('user') && $this->isAuthenticated()) {
@@ -50,18 +54,19 @@ class ApiPageController extends Controller
             $params['userid'] = $userid;
         }
         $pageList = $this->container->get("aisel.page.manager")->getPages($params, $locale);
-
         return $pageList;
     }
 
     /**
-     * @Rest\View
+     * @param string $urlKey
+     * @param string $locale
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse $response
      */
     public function pageViewByURLAction($urlKey, $locale)
     {
         /** @var \Aisel\PageBundle\Entity\Page $page */
         $page = $this->container->get("aisel.page.manager")->getPageByURL($urlKey, $locale);
-
         return $page;
     }
 }

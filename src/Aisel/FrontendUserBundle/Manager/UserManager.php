@@ -11,10 +11,11 @@
 
 namespace Aisel\FrontendUserBundle\Manager;
 
-use Aisel\FrontendUserBundle\Entity\FrontendUser;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Aisel\FrontendUserBundle\Entity\FrontendUser;
 use Aisel\ResourceBundle\Utility\PasswordUtility;
 
 /**
@@ -24,6 +25,7 @@ use Aisel\ResourceBundle\Utility\PasswordUtility;
  */
 class UserManager implements UserProviderInterface
 {
+
     protected $encoder;
     protected $em;
     protected $templating;
@@ -34,7 +36,9 @@ class UserManager implements UserProviderInterface
     /**
      * {@inheritDoc}
      */
-    public function __construct($em, $encoder, $mailer, $templating, $websiteEmail, $securityContext)
+    public function __construct($em, $encoder, $mailer,
+                                $templating, $websiteEmail, $securityContext
+                               )
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
@@ -60,12 +64,58 @@ class UserManager implements UserProviderInterface
         return $this->mailer;
     }
 
+//    /**
+//     * Get Session service
+//     */
+//    public function getSession()
+//    {
+//        return $this->request;
+//    }
+
     /**
      * Get User repository
      */
     protected function getRepository()
     {
         return $this->em->getRepository('AiselFrontendUserBundle:FrontendUser');
+    }
+
+
+    /**
+     * Get current user entity
+     *
+     * @param int $userId
+     *
+     * @return \Aisel\FrontendUserBundle\Entity\FrontendUser $currentUser
+     */
+    public function getUser($userId = null)
+    {
+        if ($userId) return $this->loadById($userId);
+
+        $userToken = $this->securityContext->getToken();
+        if ($userToken) {
+            $user = $userToken->getUser();
+
+            if ($user !== 'anon.') {
+                $roles = $user->getRoles();
+
+                if (in_array('ROLE_USER', $roles)) return $user;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * Get get session Id
+     *
+     * @return string $sessionId
+     */
+    public function getSessionId()
+    {
+        $sessionId = $this->getSession();
+
+        return $sessionId;
     }
 
     /**
@@ -86,7 +136,6 @@ class UserManager implements UserProviderInterface
                 if (in_array('ROLE_USER', $roles)) return true;
             }
         }
-
         return false;
     }
 
@@ -94,7 +143,7 @@ class UserManager implements UserProviderInterface
      * Is user password correct
      *
      * @param FrontendUser $user
-     * @param string       $password
+     * @param string $password
      *
      * @return boolean $isValid
      */
@@ -115,7 +164,7 @@ class UserManager implements UserProviderInterface
      *
      * @param array $userData
      *
-     * @param FrontendUser $user
+     * @return FrontendUser $user
      */
     public function registerFixturesUser(array $userData)
     {
@@ -244,10 +293,8 @@ class UserManager implements UserProviderInterface
         if ($user) {
             $utility = new PasswordUtility();
             $password = $utility->generatePassword();
-
             $encoder = $this->encoder->getEncoder($user);
             $encodedPassword = $encoder->encodePassword($password, $user->getSalt());
-
             $user->setPassword($encodedPassword);
 
             // Send password via email
@@ -269,12 +316,9 @@ class UserManager implements UserProviderInterface
             } catch (\Swift_TransportException $e) {
                 $response = $e->getMessage();
             }
-
             $this->em->persist($user);
             $this->em->flush();
-
             return $response;
-
         } else {
             return false;
         }
@@ -284,6 +328,19 @@ class UserManager implements UserProviderInterface
     {
         $user = $this->getRepository()->findOneBy(array('username' => $username));
 
+        if (!($user)) {
+            throw new NotFoundHttpException('User not found');
+        }
+        return $user;
+    }
+
+    public function loadById($id)
+    {
+        $user = $this->getRepository()->findOneBy(array('id' => $id));
+
+        if (!($user)) {
+            throw new NotFoundHttpException('User not found');
+        }
         return $user;
     }
 
@@ -291,6 +348,9 @@ class UserManager implements UserProviderInterface
     {
         $user = $this->getRepository()->findOneBy(array('email' => $email));
 
+        if (!($user)) {
+            throw new NotFoundHttpException('User not found');
+        }
         return $user;
     }
 
@@ -298,6 +358,9 @@ class UserManager implements UserProviderInterface
     {
         $user = $this->em->getRepository('AiselFrontendUserBundle:FrontendUser')->findUser($username, $email);
 
+        if (!($user)) {
+            throw new NotFoundHttpException('User not found');
+        }
         return $user;
     }
 

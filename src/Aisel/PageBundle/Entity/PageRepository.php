@@ -21,6 +21,7 @@ use Doctrine\ORM\EntityRepository;
 class PageRepository extends EntityRepository
 {
     private $search = '';
+    private $locale = null;
     private $category = 0;
     private $pageCurrent = 1;
     private $pageLimit = 1;
@@ -60,36 +61,35 @@ class PageRepository extends EntityRepository
         if (isset($params['userid'])) {
             $this->userId = $params['userid'];
         }
+        $this->locale = $params['locale'];
         $this->pageSkip = ($this->pageCurrent - 1) * $this->pageLimit;
     }
 
     /**
      * Get page total
      *
-     * @param array  $params
-     * @param string $locale
+     * @param array $params
      *
      * @return int $total
      */
-    public function getTotalFromRequest($params, $locale)
+    public function getTotalFromRequest($params)
     {
-
         $this->mapRequest($params);
-
         $query = $this->getEntityManager()->createQueryBuilder();
-
         $query->select('COUNT(p.id)')
             ->from('AiselPageBundle:Page', 'p')
             ->andWhere('p.hidden != 1')
-            ->andWhere('p.locale = :locale')->setParameter('locale', $locale);
+            ->andWhere('p.locale = :locale')->setParameter('locale', $this->locale);
 
         if ($this->category) {
             $query->innerJoin('p.categories', 'c')
                 ->andWhere('c.metaUrl = :category')->setParameter('category', $this->category);
         }
+
         if ($this->search != '') {
             $query->andWhere('p.content LIKE :search')->setParameter('search', '%' . $this->search . '%');
         }
+
         if ($this->userId) {
             $query->innerJoin('p.frontenduser', 'u')
                 ->andWhere('u.id = :userid')->setParameter('userid', $this->userId);
@@ -105,16 +105,17 @@ class PageRepository extends EntityRepository
 
     /**
      * Get pages based on limit, current pagination and search query
-     * @param  array                         $params
+     * @param  array $params
      * @return \Aisel\PageBundle\Entity\Page
      */
     public function searchFromRequest($params)
     {
         $this->mapRequest($params);
         $query = $this->getEntityManager()->createQueryBuilder();
-        $r = $query->select('p')
+        $pages = $query->select('p')
             ->from('AiselPageBundle:Page', 'p')
             ->where('p.content LIKE :search')->setParameter('search', '%' . $this->search . '%')
+            ->andWhere('p.locale = :locale')->setParameter('locale', $this->locale)
             ->andWhere('p.status = 1')
             ->andWhere('p.hidden != 1')
             ->setMaxResults($this->pageLimit)
@@ -123,13 +124,13 @@ class PageRepository extends EntityRepository
             ->getQuery()
             ->execute();
 
-        return $r;
+        return $pages;
     }
 
     /**
      * Get pages based on limit, current pagination and search query
      * @return \Aisel\PageBundle\Entity\Page $pages
-     *                                       */
+     */
     public function getEnabledPages()
     {
         $query = $this->getEntityManager()->createQueryBuilder();
@@ -138,26 +139,24 @@ class PageRepository extends EntityRepository
             ->andWhere('p.status = 1')
             ->getQuery()
             ->execute();
-
         return $pages;
     }
 
     /**
      * Get pages based on limit, current pagination and search query
      *
-     * @param array  $params
-     * @param string $locale
+     * @param array $params
      *
      * @return \Aisel\PageBundle\Entity\Page $pages
      */
-    public function getCurrentPagesFromRequest($params, $locale)
+    public function getCurrentPagesFromRequest($params)
     {
         $this->mapRequest($params);
         $query = $this->getEntityManager()->createQueryBuilder();
-        $query->select('p.id, p.title, p.metaUrl, SUBSTRING(p.content, 1, 500) AS content,  p.createdAt,  p.status')
+        $query->select('p.id,p.locale, p.title, p.metaUrl, SUBSTRING(p.content, 1, 500) AS content,  p.createdAt,  p.status')
             ->from('AiselPageBundle:Page', 'p')
             ->andWhere('p.hidden != 1')
-            ->andWhere('p.locale = :locale')->setParameter('locale', $locale);
+            ->andWhere('p.locale = :locale')->setParameter('locale', $this->locale);
 
         if ($this->userId) {
             $query
@@ -182,7 +181,9 @@ class PageRepository extends EntityRepository
 
     /**
      * Get pages filtered by category
-     * @param  int                           $categoryId
+     *
+     * @param  int $categoryId
+     *
      * @return \Aisel\PageBundle\Entity\Page $pages
      */
     public function getPagesByCategory($categoryId)
@@ -202,8 +203,10 @@ class PageRepository extends EntityRepository
 
     /**
      * Find pages by URL
+     *
      * @param  string $url
-     * @param  int    $pageId
+     * @param  int $pageId
+     *
      * @return int    $found
      */
     public function findTotalByURL($url, $pageId = null)

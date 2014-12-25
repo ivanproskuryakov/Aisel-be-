@@ -59,6 +59,7 @@ class ProductAdmin extends Admin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $subject = $this->getSubject();
         $formMapper
             ->with('aisel.default.general')
             ->add('id', 'text', array('label' => 'aisel.default.id', 'disabled' => true, 'required' => false, 'attr' => array('class' => 'form-control')))
@@ -67,8 +68,11 @@ class ProductAdmin extends Admin
             ->add('status', 'choice', array('choices' => array(
                 '0' => $this->trans('aisel.default.disabled'),
                 '1' => $this->trans('aisel.default.enabled')),
-                'required' => false,
+                'required' => true,
                 'label' => 'aisel.default.status', 'attr' => array('class' => 'form-control')))
+            ->add('locale', 'aisel_locale', array('label' => 'aisel.default.locale',
+                'required' => true,
+                'attr' => array('class' => 'form-control')))
             ->add('descriptionShort', 'ckeditor',
                 array(
                     'label' => 'aisel.default.short_description',
@@ -104,9 +108,19 @@ class ProductAdmin extends Admin
                     'attr' => array('class' => 'mainImage')))
             ->end()
             ->with('aisel.default.categories')
-            ->add('categories', 'aisel_gedmotree', array('expanded' => true,
+            ->add('categories', 'aisel_gedmotree', array(
+                'expanded' => true,
                 'multiple' => true,
                 'class' => 'Aisel\ProductBundle\Entity\Category',
+                'label' => 'aisel.default.categories',
+                'query_builder' => function ($er) use ($subject) {
+                        $qb = $er->createQueryBuilder('c');
+                        if ($subject->getLocale()) {
+                            $qb->where('c.locale = :locale')->setParameter('locale', $subject->getLocale());
+                        }
+
+                        return $qb;
+                    }, 'empty_value' => $this->trans('aisel.default.no_parent')
             ))
             ->end()
             ->with('aisel.product.stock')
@@ -182,6 +196,9 @@ class ProductAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('id')
+            ->add('locale', 'aisel_locale', array('label' => 'aisel.default.locale',
+                'required' => false,
+                'attr' => array('class' => 'form-control')))
             ->add('mainImage', 'boolean', array('label' => 'aisel.product.main_image', 'template' => 'AiselProductBundle:Media:list_field_image.html.twig'))->add('name', null, array('label' => 'aisel.default.name'))
             ->add('sku', null, array('label' => 'aisel.default.sku'))
             ->add('price', null, array('label' => 'aisel.product.price'))
@@ -204,6 +221,7 @@ class ProductAdmin extends Admin
         $showMapper
             ->with('aisel.default.information')
             ->add('id', null, array('label' => 'aisel.default.id'))
+            ->add('locale', null, array('label' => 'aisel.default.locale'))
             ->add('name', null, array('label' => 'aisel.default.name'))
             ->add('qty', null, array('label' => 'aisel.default.qty'))
             ->add('inStock', null, array('label' => 'aisel.default.description'))

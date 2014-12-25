@@ -11,7 +11,6 @@
 
 namespace Aisel\CartBundle\Controller;
 
-use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -24,15 +23,72 @@ class ApiCartController extends Controller
 {
 
     /**
-     * @Rest\View
-     * /%website_api%/cart.json
+     * Cart manager
      */
-    public function cartDetailsAction(Request $request)
+    private function getCartManager()
     {
-        // TODO: implement cart functionality
-        $cart = false;
+        return $this->get('aisel.cart.manager');
+    }
 
-        return $cart;
+    /**
+     * User manager
+     */
+    private function getUserManager()
+    {
+        return $this->get('frontend.user.manager');
+    }
+
+    /**
+     * /%website_api%/cart.json
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function cartAction()
+    {
+        $user = $this->getUserManager()->getUser();
+        return $this->getCartManager()->getUserCart($user);
+    }
+
+    /**
+     * /%website_api%/cart/product/{productId}/qty/{qty}/add.json
+     *
+     * @param int $productId
+     * @param int $qty
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse $response
+     */
+    public function cartProductAddAction($productId, $qty)
+    {
+        $user = $this->getUserManager()->getUser();
+        $cartItem = $this->getCartManager()->addProductToCart($user, $productId, $qty);
+
+        if ($cartItem) {
+            $response = array('status' => true, 'message' => 'Product added to cart', 'cartItem' => $cartItem);
+        } else {
+            $response = array('status' => false, 'message' => 'Something went wrong during adding product to cart');
+        }
+        return $response;
+    }
+
+    /**
+     * /%website_api%/cart/product/{productId}/qty/{qty}/update.json
+     *
+     * @param int $productId
+     * @param int $qty
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse $response
+     */
+    public function cartProductUpdateAction($productId, $qty)
+    {
+        $user = $this->getUserManager()->getUser();
+        $cartItem = $this->getCartManager()->updateProductInCart($user, $productId, $qty);
+
+        if ($cartItem) {
+            $response = array('status' => true, 'message' => 'Cart updated', 'cartItem' => $cartItem);
+        } else {
+            $response = array('status' => false, 'message' => 'Something went wrong during removing product from cart');
+        }
+        return $response;
     }
 
 }

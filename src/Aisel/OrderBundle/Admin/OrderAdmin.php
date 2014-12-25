@@ -15,7 +15,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-
+use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Validator\ErrorElement;
 
 /**
@@ -31,6 +31,11 @@ class OrderAdmin extends Admin
     public function setManager($orderManager)
     {
         $this->orderManager = $orderManager;
+    }
+
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->remove('create');
     }
 
     /**
@@ -52,6 +57,8 @@ class OrderAdmin extends Admin
         $formMapper
             ->with('aisel.default.general')
             ->add('id', 'text', array('label' => 'aisel.default.id', 'disabled' => true, 'required' => false, 'attr' => array('class' => 'form-control')))
+            ->add('frontenduser', null, array('label' => 'aisel.default.user', 'disabled' => true, 'required' => false, 'attr' => array('class' => 'form-control')))
+            ->add('grandtotal', null, array('label' => 'aisel.order.total', 'disabled' => true, 'required' => false, 'attr' => array('class' => 'form-control')))
             ->add('status', 'text', array('label' => 'aisel.default.status', 'required' => false, 'attr' => array('class' => 'form-control')))
             ->end()
             ->with('aisel.default.dates')
@@ -76,6 +83,7 @@ class OrderAdmin extends Admin
         $order->setCreatedAt(new \DateTime(date('Y-m-d H:i:s')));
         $order->setUpdatedAt(new \DateTime(date('Y-m-d H:i:s')));
     }
+
     /**
      * {@inheritDoc}
      */
@@ -92,9 +100,9 @@ class OrderAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('id', null, array('label' => 'aisel.default.id'))
-            ->add('status', 'boolean', array('label' => 'aisel.default.status', 'editable' => false))
             ->add('frontenduser', null, array('label' => 'aisel.default.user'))
-            ->add('invoice', null, array('label' => 'aisel.order.invoice'))
+            ->add('status', 'text', array('label' => 'aisel.order.status', 'editable' => false))
+            ->add('grandtotal', 'text', array('label' => 'aisel.order.total', 'editable' => false))
             ->add('createdAt', 'datetime', array('label' => 'aisel.default.created_at'))
             ->add('_action', 'actions', array(
                     'actions' => array(
@@ -113,7 +121,7 @@ class OrderAdmin extends Admin
         $showMapper
             ->with('aisel.default.general')
             ->add('id', 'text', array('label' => 'aisel.default.id', 'disabled' => true, 'required' => false, 'attr' => array('class' => 'form-control')))
-            ->add('status', 'test',  array('label' => 'aisel.default.status'))
+            ->add('status', 'test', array('label' => 'aisel.default.status'))
             ->end()
             ->with('aisel.default.dates')
             ->add('createdAt', 'datetime', array(

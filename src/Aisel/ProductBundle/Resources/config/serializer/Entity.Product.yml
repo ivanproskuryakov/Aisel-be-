@@ -10,3 +10,34 @@ Aisel\ProductBundle\Entity\Product:
   properties:
     id:
         expose: true
+    locale:
+        expose: true
+    name:
+        expose: true
+    sku:
+        expose: true
+    price:
+        expose: true
+    descriptionShort:
+        expose: true
+    description:
+        expose: true
+    commentStatus:
+        expose: true
+    metaUrl:
+        expose: true
+    metaTitle:
+        expose: true
+    metaDescription:
+        expose: true
+    metaKeywords:
+        expose: true
+    status:
+        expose: true
+    mainImage:
+        expose: true
+
+    createdAt:
+        expose: true
+    updatedAt:
+        expose: true

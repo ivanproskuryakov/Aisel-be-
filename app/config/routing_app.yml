@@ -1,7 +1,0 @@
-app_homepage:
-    resource: "@AppHomepageBundle/Resources/config/routing.yml"
-    prefix:   /
-
-app_contact:
-    resource: "@AppContactBundle/Resources/config/routing.yml"
-    prefix:   /

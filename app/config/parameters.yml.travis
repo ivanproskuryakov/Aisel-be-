@@ -1,23 +1,19 @@
 parameters:
-    database_driver:    pdo_mysql
-    database_host:      127.0.0.1
-    database_port:      null
-    database_name:      aisel
-    database_user:      travis
-    database_password:  ~
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: aisel
+    database_user: travis
+    database_password: ~
 
-    mailer_transport:   gmail
-    mailer_user:        travis
-    mailer_password:    travis
-    website_email:      service@aisel.co
-
-    website_address:    http://be.aisel.co
-    website_admin:      administration
-    website_api:        api
-
-    locale:             en
-    locales:            en|ru|es|de
-    secret:             SecretTokenAisel
+    mailer_transport: gmail
+    mailer_user: travis
+    mailer_password: travis
+    website_email: service@aisel.co
+    website_address: http://ecommerce.aisel.dev
+    locale: en
+    locales: en|es|ru
+    secret: SecretTokenAisel
 
     #   Note:
     #   Locales & locale parameter only

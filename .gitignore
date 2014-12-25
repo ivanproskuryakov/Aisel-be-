@@ -12,21 +12,20 @@
 /web/bower_components/*
 /web/npm-debug.log
 /web/media/product/*
+!/web/media/product/.htaccess
 /web/photo/*
 /web/css/*
-/web/build/main.js
+/web/build/*
 !/app/cache/.gitkeep
 !app/logs/.gitkeep
 /build/
 /vendor/
 /bin/
-/composer.lock
 /composer.phar
+/composer.lock
 
 Capfile
 node_modules
 dist
-.idea/*
-/npm-debug.log
 .tmp
 .sass-cache

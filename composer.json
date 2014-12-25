@@ -1,16 +1,16 @@
 {
-    "name": "aisel/aisel-be",
+    "name": "aisel/aisel",
     "license": "MIT",
     "type": "project",
     "homepage":    "http://aisel.co",
-    "description": "Aisel[be] - Backend version of Aisel package",
+    "description": "Aisel - Open source CMS based on AngularJS and Symfony2",
     "authors": [
         {
             "name":     "Ivan Proskuryakov",
             "homepage": "http://www.linkedin.com/pub/ivan-proskuryakov/31/200/316"
         },
         {
-            "name":     "Aisel",
+            "name":     "Aisel - Open source CMS based on AngularJS and Symfony2",
             "homepage": "http://aisel.co"
         }
     ],
@@ -35,20 +35,15 @@
         "friendsofsymfony/rest-bundle": "1.4.*@dev",
         "egeloen/ckeditor-bundle": "~2.0",
 
-        "sonata-project/jquery-bundle": "1.10.*@dev",
+        "sonata-project/jquery-bundle": "1.10.2",
         "sonata-project/easy-extends-bundle": "~2.1@dev",
         "sonata-project/admin-bundle": "~2.2@dev",
         "sonata-project/doctrine-orm-admin-bundle": "~2.2@dev",
         "sonata-project/block-bundle": "~2.2@dev",
         "sonata-project/core-bundle": "~2.2@dev",
         "jms/serializer-bundle": "0.13.*@dev",
-
-        "mopa/bootstrap-bundle": "v3.0.0-beta4",
-        "twbs/bootstrap": "dev-master",
-        "knplabs/knp-menu-bundle": ">=1.1.0,<3.0.0",
-        "knplabs/knp-menu": ">=1.1.0,<3.0.0",
-        "knplabs/knp-paginator-bundle": "dev-master",
-
+        "mopa/bootstrap-bundle": "2.3.x-dev",
+        "twbs/bootstrap": "v2.3.2",
         "presta/sonata-navigation-bundle": "1.0.*@dev",
         "doctrine/doctrine-fixtures-bundle": "2.2.*@dev",
         "iphp/filestore-bundle" : "dev-master",
@@ -69,17 +64,14 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrap"
-
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrap"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
         ]
     },
     "config": {

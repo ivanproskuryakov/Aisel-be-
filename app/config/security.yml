@@ -32,21 +32,17 @@ security:
             logout:
                 path:           /%website_admin%/%locale%/logout
                 target:         /%website_admin%/%locale%/
-                invalidate_session: false
             anonymous:          false
 
         user:
             pattern:             .*
             context:             user
             form_login:
+                login_path:     /%website_api%/user/information.json
+            form_login:
                 provider:       user_frontend
-#                login_path:     /login
                 use_forward:    true
-#                check_path:     /login_check
-#                default_target_path: /
                 failure_path:   true
-#            logout:
-#                path:           /logout
             anonymous:          true
 
     access_control:
@@ -59,3 +55,6 @@ security:
         # This config requires being logged for the whole site and having the admin role for the admin part.
         # Change these rules to adapt them to your needs
         - { path: ^/%website_admin%/%locale%/, role: [ROLE_ADMIN] }
+
+        # Secured part of API
+#        - { path: ^/%website_api%/orders.json, role: ROLE_USER }

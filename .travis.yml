@@ -13,6 +13,8 @@ before_install:
     - npm install -g bower
 
     # Install node packages
+    - npm install
+    - node -v
     - "export DISPLAY=:99.0"
     - "sh -e /etc/init.d/xvfb start"
 
@@ -44,5 +46,5 @@ before_script:
 
 script:
     - bin/phpspec run --stop-on-failure
-    - bin/behat --stop-on-failure #--suite=web_features
-#    - grunt karma
+    - bin/behat --stop-on-failure
+    - protractor protractor/conf.js

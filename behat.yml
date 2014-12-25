@@ -79,15 +79,3 @@ default:
             contexts:
                 - Aisel\ContactBundle\Features\Context\Api\FeatureContext
                 - Aisel\ContactBundle\Features\Context\Admin\FeatureContext
-        subscription:
-            paths:
-                features: src/Aisel/SubscriptionBundle
-            contexts:
-                - Aisel\SubscriptionBundle\Features\Context\Admin\FeatureContext
-                - Aisel\SubscriptionBundle\Features\Context\Api\FeatureContext
-        history:
-            paths:
-                features: src/Aisel/HistoryBundle
-            contexts:
-                - Aisel\HistoryBundle\Features\Context\Admin\FeatureContext
-                - Aisel\HistoryBundle\Features\Context\Api\FeatureContext

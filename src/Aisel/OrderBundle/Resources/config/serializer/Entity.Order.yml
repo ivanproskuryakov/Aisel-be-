@@ -10,3 +10,20 @@ Aisel\OrderBundle\Entity\Order:
   properties:
     id:
         expose: true
+    status:
+        expose: true
+    status:
+        expose: true
+    subtotal:
+        expose: true
+    grandtotal:
+        expose: true
+    createdAt:
+        expose: truetrue
+    updatedAt:
+        expose: true
+    frontenduser:
+        expose: false
+
+    item:
+        expose: true

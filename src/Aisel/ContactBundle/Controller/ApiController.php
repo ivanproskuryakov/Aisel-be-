@@ -11,7 +11,6 @@
 
 namespace Aisel\ContactBundle\Controller;
 
-use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -23,16 +22,19 @@ use Symfony\Component\HttpFoundation\Request;
 class ApiController extends Controller
 {
     /**
-     * @Rest\View
      * /api/contact/send.json
+     *
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse $response
      */
     public function sendAction(Request $request)
     {
         $params = array(
-            'name' => $request->query->get('name'),
-            'email' => $request->query->get('email'),
-            'phone' => $request->query->get('phone'),
-            'message' => $request->query->get('message'),
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'phone' => $request->get('phone'),
+            'message' => $request->get('message'),
         );
 
         if ($params['name'] && $params['name'] && $params['name'] && $params['name']) {

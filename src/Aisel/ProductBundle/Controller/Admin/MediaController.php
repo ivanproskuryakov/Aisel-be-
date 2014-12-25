@@ -12,7 +12,6 @@
 namespace Aisel\ProductBundle\Controller\Admin;
 
 use Symfony\Component\HttpFoundation\Response;
-use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -24,16 +23,15 @@ use Symfony\Component\HttpFoundation\Request;
 class MediaController extends Controller
 {
     /**
-     * @Rest\View
      * /%website_admin%/product/media/{productId}/
      */
     public function uploadAction(Request $request, $productId)
     {
 
         $logger = $this->get('logger');
-        $logger->info($request);
-        $pathInfo = $request->getPathInfo();
-        $documentRoot = realpath($request->server->get('DOCUMENT_ROOT'));
+        $logger->info($request->get('files'));
+        $pathInfo = $request->get('request')->getPathInfo();
+        $documentRoot = realpath($this->sc->get('request')->server->get('DOCUMENT_ROOT'));
         $json = $this->container->get("aisel.product.media.manager")
             ->launchMediaUploaderForProductId($productId, $pathInfo, $documentRoot);
 

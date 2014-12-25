@@ -22,7 +22,6 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
-            new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
 
             // Sonata
             new Sonata\CoreBundle\SonataCoreBundle(),
@@ -53,13 +52,7 @@ class AppKernel extends Kernel
             new Aisel\ResourceBundle\AiselResourceBundle(),
             new Aisel\InstallerBundle\AiselInstallerBundle(),
             new Aisel\FixtureBundle\AiselFixtureBundle(),
-            new Aisel\SubscriptionBundle\AiselSubscriptionBundle(),
-            new Aisel\HistoryBundle\AiselHistoryBundle(),
 
-            // Application specific bundles
-            new App\HomepageBundle\AppHomepageBundle(),
-            new App\ResourceBundle\AppResourceBundle(),
-            new App\ContactBundle\AppContactBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

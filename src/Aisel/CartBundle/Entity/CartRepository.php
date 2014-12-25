@@ -21,4 +21,88 @@ use Doctrine\ORM\EntityRepository;
  */
 class CartRepository extends EntityRepository
 {
+
+    /**
+     * Add product to cart
+     *
+     * @param \Aisel\FrontendUserBundle\Entity\FrontendUser $user
+     * @param \Aisel\ProductBundle\Entity\Product $product
+     * @param int $qty
+     *
+     * @return \Aisel\CartBundle\Entity\Cart $cartItem
+     */
+    public function addProduct($user, $product, $qty)
+    {
+        $em = $this->getEntityManager();
+        // Summarise Qty if product already inside the cart
+        if ($cartItem = $this->findProduct($user, $product)) {
+            $originalQty = $cartItem->getQty();
+            $newQty = $originalQty + $qty;
+            $cartItem->setQty($newQty);
+            $cartItem->setUpdatedAt(new \DateTime(date('Y-m-d H:i:s')));
+        } else {
+            // else add product to cart
+            $cartItem = new Cart();
+            $cartItem->setFrontenduser($user);
+            $cartItem->setProduct($product);
+            $cartItem->setQty($qty);
+            $cartItem->setCreatedAt(new \DateTime(date('Y-m-d H:i:s')));
+            $cartItem->setUpdatedAt(new \DateTime(date('Y-m-d H:i:s')));
+        }
+        $em->persist($cartItem);
+        $em->flush();
+        return $cartItem;
+    }
+
+    /**
+     * Update product in cart
+     *
+     * @param \Aisel\FrontendUserBundle\Entity\FrontendUser $user
+     * @param \Aisel\ProductBundle\Entity\Product $product
+     * @param int $qty
+     *
+     * @return \Aisel\CartBundle\Entity\Cart $total
+     */
+    public function updateProduct($user, $product, $qty = null)
+    {
+        $em = $this->getEntityManager();
+        $cartItem = $this->findProduct($user, $product);
+
+        // if cart item exists
+        if ($cartItem) {
+            if ($qty) {
+                $cartItem->setQty($qty);
+                $cartItem->setUpdatedAt(new \DateTime(date('Y-m-d H:i:s')));
+                $em->persist($cartItem);
+                $em->flush();
+            } else {
+                $em->remove($cartItem);
+                $em->flush();
+            }
+        }
+        return $cartItem;
+    }
+
+    /**
+     * Find product in cart
+     *
+     * @param \Aisel\FrontendUserBundle\Entity\FrontendUser $user
+     * @param \Aisel\ProductBundle\Entity\Product $product
+     *
+     * @return \Aisel\CartBundle\Entity\Cart $cartItem
+     */
+    public function findProduct($user, $product)
+    {
+        $query = $this->getEntityManager()->createQueryBuilder();
+        $query->select('c')
+            ->from('AiselCartBundle:Cart', 'c')
+            ->where('c.product = :productId')->setParameter('productId', $product->getId())
+            ->andWhere('c.frontenduser = :userId')->setParameter('userId', $user->getId());
+        $cartItem = $query->getQuery()->getResult();
+
+        if ($cartItem) return $cartItem[0];
+        return false;
+    }
+
+
 }
