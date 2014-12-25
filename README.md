@@ -1,6 +1,6 @@
 About
 -----------------------------------
-Backend version of [Aisel](https://github.com/ivanproskuryakov/Aisel) package
+Backend version of [Aisel](https://github.com/ivanproskuryakov/Aisel) package<br/>
 Project website: `http://aisel.co/`<br/>
 Demo: `http://ecommerce.aisel.co/administration/en/` [backenduser/backenduser]<br/>
 
