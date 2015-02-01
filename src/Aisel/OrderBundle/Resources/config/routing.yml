@@ -22,3 +22,15 @@ api_aisel_ordersubmit:
     defaults: { _controller: AiselOrderBundle:ApiOrder:orderSubmit, _format: json }
     requirements:
         _method: POST
+
+api_aisel_ordercheckout_init:
+    pattern:  /%website_api%/{locale}/order/checkout/init.json
+    defaults: { _controller: AiselOrderBundle:ApiCheckout:init, _format: json }
+    requirements:
+        _method: GET
+
+aisel_payum_order:
+    pattern:  /payum/
+    defaults: { _controller: AiselOrderBundle:Payum:order, _format: json }
+    requirements:
+        _method: GET

@@ -39,7 +39,8 @@ services:
         arguments:
             - @service_container
             - @doctrine.orm.entity_manager
-            - @frontend.user.manager
+            - @aisel.settings.manager
+            - @aisel.cart.manager
 
     aisel.invoice.manager:
         class: %aisel_invoice_manager.class%

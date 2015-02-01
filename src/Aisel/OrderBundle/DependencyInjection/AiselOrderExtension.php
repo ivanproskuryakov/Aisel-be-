@@ -29,8 +29,8 @@ class AiselOrderExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
-        $this->processConfiguration($configuration, $configs);
-
+        $config = $this->processConfiguration($configuration, $configs);
+        $container->setParameter('aisel_order.payment_methods', $config['payment_methods']);
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
     }

@@ -21,15 +21,13 @@ use Aisel\ResourceBundle\Utility\UrlUtility;
  */
 class PageManager
 {
-    protected $sc;
     protected $em;
 
     /**
      * {@inheritDoc}
      */
-    public function __construct($serviceContainer, $entityManager)
+    public function __construct($entityManager)
     {
-        $this->sc = $serviceContainer;
         $this->em = $entityManager;
     }
 
@@ -71,6 +69,7 @@ class PageManager
             'total' => $total,
             'pages' => $pages
         );
+
         return $return;
     }
 
@@ -91,6 +90,7 @@ class PageManager
             throw new NotFoundHttpException('Nothing found');
         }
         $pageDetails = array('page' => $page, 'categories' => $this->getPageCategories($page));
+
         return $pageDetails;
     }
 
@@ -112,6 +112,7 @@ class PageManager
             throw new NotFoundHttpException('Nothing found');
         }
         $pageDetails = array('page' => $page, 'categories' => $this->getPageCategories($page));
+
         return $pageDetails;
     }
 
@@ -132,6 +133,7 @@ class PageManager
         if ($page) {
             $validUrl = $validUrl . '-' . time();
         }
+
         return $validUrl;
     }
 
@@ -143,6 +145,7 @@ class PageManager
     public function getEnabledPages()
     {
         $pageList = $this->em->getRepository('AiselPageBundle:Page')->getEnabledPages();
+
         return $pageList;
     }
 

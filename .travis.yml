@@ -47,4 +47,3 @@ before_script:
 script:
     - bin/phpspec run --stop-on-failure
     - bin/behat --stop-on-failure
-    - protractor protractor/conf.js

@@ -2,12 +2,14 @@
 
 namespace Aisel\OrderBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Payum\Core\Model\Order as BaseOrder;
 
 /**
  * Order
+ *
+ * TODO: Finish with order variables
  */
-class Order
+class Order //extends BaseOrder
 {
     /**
      * @var integer
@@ -70,7 +72,7 @@ class Order
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -80,7 +82,7 @@ class Order
     /**
      * Set locale
      *
-     * @param string $locale
+     * @param  string $locale
      * @return Order
      */
     public function setLocale($locale)
@@ -93,7 +95,7 @@ class Order
     /**
      * Get locale
      *
-     * @return string 
+     * @return string
      */
     public function getLocale()
     {
@@ -103,7 +105,7 @@ class Order
     /**
      * Set status
      *
-     * @param string $status
+     * @param  string $status
      * @return Order
      */
     public function setStatus($status)
@@ -116,7 +118,7 @@ class Order
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -126,7 +128,7 @@ class Order
     /**
      * Set subtotal
      *
-     * @param integer $subtotal
+     * @param  integer $subtotal
      * @return Order
      */
     public function setSubtotal($subtotal)
@@ -139,7 +141,7 @@ class Order
     /**
      * Get subtotal
      *
-     * @return integer 
+     * @return integer
      */
     public function getSubtotal()
     {
@@ -149,7 +151,7 @@ class Order
     /**
      * Set grandtotal
      *
-     * @param integer $grandtotal
+     * @param  integer $grandtotal
      * @return Order
      */
     public function setGrandtotal($grandtotal)
@@ -162,7 +164,7 @@ class Order
     /**
      * Get grandtotal
      *
-     * @return integer 
+     * @return integer
      */
     public function getGrandtotal()
     {
@@ -172,7 +174,7 @@ class Order
     /**
      * Set createdAt
      *
-     * @param \DateTime $createdAt
+     * @param  \DateTime $createdAt
      * @return Order
      */
     public function setCreatedAt($createdAt)
@@ -185,7 +187,7 @@ class Order
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -195,7 +197,7 @@ class Order
     /**
      * Set updatedAt
      *
-     * @param \DateTime $updatedAt
+     * @param  \DateTime $updatedAt
      * @return Order
      */
     public function setUpdatedAt($updatedAt)
@@ -208,7 +210,7 @@ class Order
     /**
      * Get updatedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -218,7 +220,7 @@ class Order
     /**
      * Set frontenduser
      *
-     * @param \Aisel\FrontendUserBundle\Entity\FrontendUser $frontenduser
+     * @param  \Aisel\FrontendUserBundle\Entity\FrontendUser $frontenduser
      * @return Order
      */
     public function setFrontenduser(\Aisel\FrontendUserBundle\Entity\FrontendUser $frontenduser = null)
@@ -231,7 +233,7 @@ class Order
     /**
      * Get frontenduser
      *
-     * @return \Aisel\FrontendUserBundle\Entity\FrontendUser 
+     * @return \Aisel\FrontendUserBundle\Entity\FrontendUser
      */
     public function getFrontenduser()
     {
@@ -241,7 +243,7 @@ class Order
     /**
      * Set invoice
      *
-     * @param \Aisel\OrderBundle\Entity\Invoice $invoice
+     * @param  \Aisel\OrderBundle\Entity\Invoice $invoice
      * @return Order
      */
     public function setInvoice(\Aisel\OrderBundle\Entity\Invoice $invoice = null)
@@ -254,7 +256,7 @@ class Order
     /**
      * Get invoice
      *
-     * @return \Aisel\OrderBundle\Entity\Invoice 
+     * @return \Aisel\OrderBundle\Entity\Invoice
      */
     public function getInvoice()
     {
@@ -264,7 +266,7 @@ class Order
     /**
      * Add item
      *
-     * @param \Aisel\OrderBundle\Entity\OrderItem $item
+     * @param  \Aisel\OrderBundle\Entity\OrderItem $item
      * @return Order
      */
     public function addItem(\Aisel\OrderBundle\Entity\OrderItem $item)
@@ -287,10 +289,230 @@ class Order
     /**
      * Get item
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getItem()
     {
         return $this->item;
+    }
+    /**
+     * @var integer
+     */
+    private $totalamount;
+
+    /**
+     * Set totalamount
+     *
+     * @param  integer $totalamount
+     * @return Order
+     */
+    public function setTotalamount($totalamount)
+    {
+        $this->totalamount = $totalamount;
+
+        return $this;
+    }
+
+    /**
+     * Get totalamount
+     *
+     * @return integer
+     */
+    public function getTotalamount()
+    {
+        return $this->totalamount;
+    }
+    /**
+     * @var string
+     */
+    private $description;
+
+    /**
+     * @var string
+     */
+    private $currency;
+
+    /**
+     * Set description
+     *
+     * @param  string $description
+     * @return Order
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set currency
+     *
+     * @param  string $currency
+     * @return Order
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
+
+        return $this;
+    }
+
+    /**
+     * Get currency
+     *
+     * @return string
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+    /**
+     * @var string
+     */
+    private $country;
+
+    /**
+     * @var string
+     */
+    private $region;
+
+    /**
+     * @var string
+     */
+    private $city;
+
+    /**
+     * @var string
+     */
+    private $phone;
+
+    /**
+     * Set country
+     *
+     * @param  string $country
+     * @return Order
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Set region
+     *
+     * @param  string $region
+     * @return Order
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    /**
+     * Get region
+     *
+     * @return string
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
+     * Set city
+     *
+     * @param  string $city
+     * @return Order
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param  string $phone
+     * @return Order
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+    /**
+     * @var string
+     */
+    private $paymentMethod;
+
+    /**
+     * Set paymentMethod
+     *
+     * @param  string $paymentMethod
+     * @return Order
+     */
+    public function setPaymentMethod($paymentMethod)
+    {
+        $this->paymentMethod = $paymentMethod;
+
+        return $this;
+    }
+
+    /**
+     * Get paymentMethod
+     *
+     * @return string
+     */
+    public function getPaymentMethod()
+    {
+        return $this->paymentMethod;
     }
 }

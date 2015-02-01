@@ -14,42 +14,142 @@ namespace Aisel\AddressingBundle\Manager;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Manager for Addressings, mostly used in REST API
+ * Addressing manager mostly used in API
  *
  * @author Ivan Proskoryakov <volgodark@gmail.com>
  */
 class AddressingManager
 {
-    protected $sc;
     protected $em;
 
     /**
      * {@inheritDoc}
      */
-    public function __construct($sc, $em)
+    public function __construct($entityManager)
     {
-        $this->sc = $sc;
-        $this->em = $em;
+        $this->em = $entityManager;
+    }
+
+    protected function getRepository()
+    {
+        return $this->em->getRepository('AiselBackendUserBundle:BackendUser');
     }
 
     /**
-     * Get single detailed addressing by Id
+     * Get all countries
      *
-     * @param int $id
+     * @return \Aisel\AddressingBundle\Entity\Country $countries
      *
-     * @return \Aisel\AddressingBundle\Entity\Addressing $addressingDetails
-     *
-     * @throws NotFoundHttpException*
+     * @throws NotFoundHttpException
      */
-    public function getAddressing($id)
+    public function getCountries()
     {
-        $addressing = $this->em->getRepository('AiselAddressingBundle:Addressing')->find($id);
+        $countries = $this->em->getRepository('AiselAddressingBundle:Country')->findAll();
 
-        if (!($addressing)) {
+        if (!($countries)) {
             throw new NotFoundHttpException('Nothing found');
         }
 
-        return $addressing;
+        return $countries;
+    }
+
+    /**
+     * Get country city by its id
+     *
+     * @param  integer                                $id
+     * @return \Aisel\AddressingBundle\Entity\Country $countries
+     *
+     * @throws NotFoundHttpException
+     */
+    public function getCountryById($id)
+    {
+        $country = $this
+            ->em->getRepository('AiselAddressingBundle:Country')
+            ->findOneBy(array('id' => $id));
+
+        if (!($country)) {
+            throw new NotFoundHttpException('Nothing found');
+        }
+
+        return $country;
+    }
+
+    /**
+     * Get all cities
+     *
+     * @return \Aisel\AddressingBundle\Entity\City $citil
+     *
+     * @throws NotFoundHttpException
+     */
+    public function getCities()
+    {
+        $cities = $this->em->getRepository('AiselAddressingBundle:City')->findAll();
+
+        if (!($cities)) {
+            throw new NotFoundHttpException('Nothing found');
+        }
+
+        return $cities;
+    }
+
+    /**
+     * Get single city by its id
+     *
+     * @param  integer                             $id
+     * @return \Aisel\AddressingBundle\Entity\City $countries
+     *
+     * @throws NotFoundHttpException
+     */
+    public function getCityById($id)
+    {
+        $city = $this
+            ->em->getRepository('AiselAddressingBundle:City')
+            ->findOneBy(array('id' => $id));
+
+        if (!($city)) {
+            throw new NotFoundHttpException('Nothing found');
+        }
+
+        return $city;
+    }
+
+    /**
+     * Get all regions
+     *
+     * @return \Aisel\AddressingBundle\Entity\Region $regions
+     *
+     * @throws NotFoundHttpException
+     */
+    public function getRegions()
+    {
+        $regions = $this->em->getRepository('AiselAddressingBundle:Region')->findAll();
+
+        if (!($regions)) {
+            throw new NotFoundHttpException('Nothing found');
+        }
+
+        return $regions;
+    }
+
+    /**
+     * Get single region by its id
+     *
+     * @param  integer                               $id
+     * @return \Aisel\AddressingBundle\Entity\Region $region
+     *
+     * @throws NotFoundHttpException
+     */
+    public function getRegionById($id)
+    {
+        $region = $this
+            ->em->getRepository('AiselAddressingBundle:Region')
+            ->findOneBy(array('id' => $id));
+
+        if (!($region)) {
+            throw new NotFoundHttpException('Nothing found');
+        }
+
+        return $region;
     }
 
 }

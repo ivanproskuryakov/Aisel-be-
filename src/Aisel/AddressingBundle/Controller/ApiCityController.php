@@ -12,7 +12,6 @@
 namespace Aisel\AddressingBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Frontend Addressing Cities REST API controller
@@ -23,22 +22,36 @@ class ApiCityController extends Controller
 {
 
     /**
-     * /%website_api%/addressing/city/list.json
+     * Addressing manager
      */
-    public function cityListAction(Request $request)
+    private function getAddressingManager()
     {
-        // TODO: finish addressing API functionality
-        $cityList = true;
-        return $cityList;
+        return $this->get('aisel.addressing.manager');
+    }
+
+    /**
+     * /%website_api%/addressing/city/list.json
+     *
+     * @return JsonResponse $response
+     */
+    public function cityListAction()
+    {
+        $countryList = $this->getAddressingManager()->getCities();
+
+        return $countryList;
     }
 
     /**
      * /%website_api%/addressing/city/{id}.json
+     *
+     * @param integer $id
+     *
+     * @return JsonResponse $response
      */
     public function cityDetailsAction($id)
     {
-        // TODO: finish addressing API functionality
-        $cityDetails = $id;
-        return $cityDetails;
+        $countryDetails = $this->getAddressingManager()->getCityById($id);
+
+        return $countryDetails;
     }
 }

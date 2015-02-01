@@ -17,17 +17,19 @@ class OrderRepository extends EntityRepository
      * Create from user cart
      *
      * @param \Aisel\FrontendUserBundle\Entity\FrontendUser $user
-     * @param string $locale
+     * @param string                                        $locale
+     * @param string                                        $currencyCode
+     * @param mixed                                         $orderInfo
      *
      * @return \Aisel\OrderBundle\Entity\Order $order|false
      */
-    public function createOrderFromCartForUser($user, $locale)
+    public function createOrderFromCartForUser($user, $currencyCode, $orderInfo)
     {
-        $order = $this->createOrder($user, $locale);
-
+        $order = $this->createEmptyOrder($user, $currencyCode, $orderInfo);
         // Set product items and remove from cart
         $em = $this->getEntityManager();
         $total = 0;
+
         foreach ($user->getCart() as $item) {
             $total = $total + ($item->getProduct()->getPrice() * $item->getQty());
             $orderItem = new OrderItem();
@@ -44,10 +46,8 @@ class OrderRepository extends EntityRepository
             $em->remove($item);
             $em->flush();
         }
-
         // Set totals
-        $order->setSubtotal($total);
-        $order->setGrandtotal($total);
+        $order->setTotalAmount($total);
         $em->persist($order);
         $em->flush();
 
@@ -58,18 +58,19 @@ class OrderRepository extends EntityRepository
      * Create from array of product
      *
      * @param \Aisel\FrontendUserBundle\Entity\FrontendUser $user
-     * @param string $locale
-     * @param array $products
+     * @param string                                        $locale
+     * @param array                                         $products
+     * @param string                                        $currencyCode
+     * @param mixed                                         $orderInfo
      *
      * @return \Aisel\OrderBundle\Entity\Order $order|false
      */
-    public function createOrderFromProductsForUser($user, $locale, $products)
+    public function createOrderFromProductsForUser($user, $products, $currencyCode, $orderInfo)
     {
-        $order = $this->createOrder($user, $locale);
-
-        // Set product items
+        $order = $this->createEmptyOrder($user, $currencyCode, $orderInfo);
         $em = $this->getEntityManager();
         $total = 0;
+
         foreach ($products as $product) {
             $total = $total + ($product->getPrice() * 1);
             $orderItem = new OrderItem();
@@ -83,11 +84,12 @@ class OrderRepository extends EntityRepository
             $em->persist($orderItem);
             $em->flush();
         }
+
         // Set totals
-        $order->setSubtotal($total);
-        $order->setGrandtotal($total);
+        $order->setTotalAmount($total);
         $em->persist($order);
         $em->flush();
+
         return $order;
     }
 
@@ -95,18 +97,27 @@ class OrderRepository extends EntityRepository
      * Create empty order
      *
      * @param \Aisel\FrontendUserBundle\Entity\FrontendUser $user
-     * @param string $locale
+     * @param string                                        $locale
+     * @param string                                        $currencyCode
+     * @param mixed                                         $orderInfo
      *
-     * @return \Aisel\OrderBundle\Entity\Order $order|false
+     * @return \Aisel\OrderBundle\Entity\Order $order
      */
-    public function createOrder($user, $locale)
+    public function createEmptyOrder($user, $currencyCode, $orderInfo)
     {
-        // Create order
         $em = $this->getEntityManager();
         $order = new Order();
-        $order->setLocale($locale);
+        $order->setTotalAmount(0);
+        $order->setLocale($orderInfo['locale']);
         $order->setFrontenduser($user);
+        $order->setCurrency($currencyCode);
         $order->setStatus('new');
+        $order->setPaymentMethod($orderInfo['payment_method']);
+        $order->setCountry($orderInfo['billing_country']);
+        $order->setRegion($orderInfo['billing_region']);
+        $order->setCity($orderInfo['billing_city']);
+        $order->setPhone($orderInfo['billing_phone']);
+        $order->setDescription($orderInfo['billing_comment']);
         $order->setCreatedAt(new \DateTime(date('Y-m-d H:i:s')));
         $order->setUpdatedAt(new \DateTime(date('Y-m-d H:i:s')));
         $em->persist($order);
@@ -131,6 +142,7 @@ class OrderRepository extends EntityRepository
             ->orderBy('o.id', 'DESC')
             ->getQuery()
             ->execute();
+
         return $orders;
     }
 
@@ -138,7 +150,7 @@ class OrderRepository extends EntityRepository
      * Grab one order for given $user
      *
      * @param \Aisel\FrontendUserBundle\Entity\FrontendUser $user
-     * @param integer $orderId
+     * @param integer                                       $orderId
      *
      * @return \Aisel\OrderBundle\Entity\Order $order
      */
@@ -151,8 +163,8 @@ class OrderRepository extends EntityRepository
             ->andWhere('o.id = :orderId')->setParameter('orderId', $orderId)
             ->getQuery()
             ->execute();
+
         return $orders;
     }
-
 
 }

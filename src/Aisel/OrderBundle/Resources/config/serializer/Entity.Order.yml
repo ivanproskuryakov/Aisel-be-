@@ -6,7 +6,7 @@
 # file that was distributed with this source code.
 
 Aisel\OrderBundle\Entity\Order:
-  exclusion_policy: ALL
+  exclusion_policy: all
   properties:
     id:
         expose: true
@@ -14,16 +14,43 @@ Aisel\OrderBundle\Entity\Order:
         expose: true
     status:
         expose: true
-    subtotal:
+    totalamount:
         expose: true
-    grandtotal:
+    currency:
         expose: true
-    createdAt:
-        expose: truetrue
-    updatedAt:
+    paymentMethod:
         expose: true
-    frontenduser:
-        expose: false
+    country:
+        expose: true
+    region:
+        expose: true
+    city:
+        expose: true
+    phone:
+        expose: true
+    description:
+        expose: true
 
     item:
         expose: true
+    frontenduser:
+        expose: false
+    createdAt:
+        expose: true
+    updatedAt:
+        expose: true
+
+#    number:
+#        expose: false
+#    description:
+#        expose: false
+#    clientEmail:
+#        expose: false
+#    clientId:
+#        expose: false
+#    totalAmount:
+#        expose: false
+#    currencyCode:
+#        expose: false
+#    currencyDigitsAfterDecimalPoint:
+#        expose: false

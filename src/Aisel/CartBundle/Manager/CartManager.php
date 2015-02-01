@@ -20,7 +20,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class CartManager
 {
-    protected $sc;
     protected $em;
     protected $userManager;
     protected $productManager;
@@ -28,9 +27,8 @@ class CartManager
     /**
      * {@inheritDoc}
      */
-    public function __construct($serviceContainer, $entityManager, $frontendUserManager, $productManager)
+    public function __construct($entityManager, $frontendUserManager, $productManager)
     {
-        $this->sc = $serviceContainer;
         $this->em = $entityManager;
         $this->userManager = $frontendUserManager;
         $this->productManager = $productManager;
@@ -62,6 +60,7 @@ class CartManager
     public function getUserCart($user)
     {
         $cartItems = $this->em->getRepository('AiselCartBundle:Cart')->findBy(array('frontenduser' => $user));
+
         return $cartItems;
     }
 
@@ -69,8 +68,8 @@ class CartManager
      * Adds product to cart by given $id and $qty
      *
      * @param \Aisel\FrontendUserBundle\Entity\FrontendUser $user
-     * @param int $productId
-     * @param int $qty
+     * @param int                                           $productId
+     * @param int                                           $qty
      *
      * @return \Aisel\CartBundle\Entity\Cart $cartItem
      *
@@ -82,6 +81,7 @@ class CartManager
 
         $product = $this->getProductManager()->loadById($productId);
         $cartItem = $this->em->getRepository('AiselCartBundle:Cart')->addProduct($user, $product, $qty);
+
         return $cartItem;
     }
 
@@ -89,8 +89,8 @@ class CartManager
      * Updates product item inside cart by given $id and $qty
      *
      * @param \Aisel\FrontendUserBundle\Entity\FrontendUser $user
-     * @param int $productId
-     * @param int $qty
+     * @param int                                           $productId
+     * @param int                                           $qty
      *
      * @return \Aisel\CartBundle\Entity\Cart $cartItem
      *
@@ -102,8 +102,8 @@ class CartManager
 
         $product = $this->getProductManager()->loadById($productId);
         $cartItem = $this->em->getRepository('AiselCartBundle:Cart')->updateProduct($user, $product, $qty);
+
         return $cartItem;
     }
-
 
 }

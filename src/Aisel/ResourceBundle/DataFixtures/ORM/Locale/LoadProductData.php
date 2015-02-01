@@ -46,15 +46,14 @@ class LoadProductData extends XMLFixture implements OrderedFixtureInterface
                     $product->setLocale($table->column[1]);
                     $product->setName($table->column[2]);
                     $product->setSku($table->column[3]);
-                    $product->setPrice((float)$table->column[4]);
-                    $product->setQty((int)$table->column[11]);
+                    $product->setPrice((float) $table->column[4]);
+                    $product->setQty((int) $table->column[11]);
                     $product->setDescriptionShort($table->column[14]);
                     $product->setDescription($table->column[15]);
-                    $product->setStatus((int)$table->column[16]);
-                    $product->setHidden((int)$table->column[17]);
-                    $product->setCommentStatus((int)$table->column[18]);
+                    $product->setStatus((int) $table->column[16]);
+                    $product->setHidden((int) $table->column[17]);
+                    $product->setCommentStatus((int) $table->column[18]);
                     $product->setMetaUrl($table->column[19]);
-
 
                     $categories = explode(",", $table->column[20]);
                     foreach ($categories as $c) {
@@ -79,8 +78,8 @@ class LoadProductData extends XMLFixture implements OrderedFixtureInterface
         $uploadDir = $this->container->getParameter('application.media.product.upload_dir');
         $uploadPath = $this->container->getParameter('application.media.product.upload_path');
         $fixtureImage = dirname($this->container->getParameter('kernel.root_dir')) .
-            $this->container->getParameter('aisel_fixture.xml.path') . DIRECTORY_SEPARATOR .
-            'images/products/' . $this->productImage;
+            $this->container->getParameter('aisel_fixture.xml.path') .
+            DIRECTORY_SEPARATOR . 'images/products/' . $this->productImage;
         $productDir = $uploadDir . DIRECTORY_SEPARATOR . $product->getId();
 
         $sql = serialize(array(
@@ -104,8 +103,7 @@ class LoadProductData extends XMLFixture implements OrderedFixtureInterface
     /**
      * {@inheritDoc}
      */
-    public
-    function getOrder()
+    public function getOrder()
     {
         return 310;
     }

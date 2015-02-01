@@ -1,6 +1,6 @@
 parameters:
     application.name: Aisel
-    application.version: 0.2.0
+    application.version: 0.3.0
     application.media.path: /media
     application.media.product.path: /media/product
     application.media.product.main.path: /media/product
@@ -13,9 +13,9 @@ aisel_config:
     settings_route: /%website_admin%/{_locale}/settings/{editLocale}
     route_prefix: config_ # ex: config_contact
     entities:
-        homepage:
+        content:
             order: 0
-            controller: AiselSettingsBundle:ConfigHomepage:modify
+            controller: AiselSettingsBundle:ConfigContent:modify
         meta:
             order: 10
             controller: AiselSettingsBundle:ConfigMeta:modify
@@ -31,3 +31,10 @@ aisel_config:
 
 aisel_fixture:
     xml_path: /fixtures/xml
+
+aisel_order:
+    payment_methods:
+        offline:
+            title: "Offline Payment"
+        paypal_express_checkout_nvp:
+            title: "Paypal Express Checkout"
